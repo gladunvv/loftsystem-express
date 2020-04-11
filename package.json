@@ -1,0 +1,31 @@
+{
+  "name": "loftsystem-express",
+  "version": "1.0.0",
+  "description": "loftschool project",
+  "main": "app.js",
+  "dependencies": {
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app.js",
+    "client": "npm run start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gladunvv/loftsystem-express.git"
+  },
+  "keywords": [
+    "express",
+    "loftschool",
+    "node"
+  ],
+  "author": "Vladislav Gladun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gladunvv/loftsystem-express/issues"
+  },
+  "homepage": "https://github.com/gladunvv/loftsystem-express#readme"
+}
