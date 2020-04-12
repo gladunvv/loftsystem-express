@@ -6,6 +6,9 @@ const app = express();
 
 const PORT = config.get('port');
 
+
+app.use(express.json({ extended: true }));
+
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
