@@ -13,6 +13,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 
+app.use('/api', require('./routes'))
+
 async function start() {
   try {
     app.listen(PORT, () => console.log(`App has been started on port ${PORT}`));
