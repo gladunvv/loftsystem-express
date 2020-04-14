@@ -10,11 +10,11 @@ app.use(express.json({ extended: true }));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
-app.use('/api', require('./routes'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
+app.use('/api', require('./routes'));
 
 const PORT = config.get('port') || 5000;
 

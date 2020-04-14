@@ -128,7 +128,7 @@ export const loginUser = ({ username, password }) => (dispatch, getState) =>
       });
   });
 
-export const registerUser = ({ username, password, firstname, lastname, patronicname }) => (
+export const registerUser = ({ username, password, firstname, lastname, patronicname, repeatPassword }) => (
   dispatch,
   getState
 ) =>
@@ -138,7 +138,8 @@ export const registerUser = ({ username, password, firstname, lastname, patronic
       surName: lastname,
       firstName: firstname,
       middleName: patronicname,
-      password
+      password,
+      passwordConfirm: repeatPassword
     };
     request({
       url: '/registration',

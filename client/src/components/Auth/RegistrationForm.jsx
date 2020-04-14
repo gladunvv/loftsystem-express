@@ -35,9 +35,9 @@ const RegistrationForm = ({ classes, dispatch, history }) => {
   };
   const handleSubmit = event => {
     event.preventDefault();
-    const { username, password, firstname, lastname, patronicname } = values;
+    const { username, password, firstname, lastname, patronicname, repeatPassword } = values;
     dispatch(
-      registerUser({ username, password, firstname, lastname, patronicname })
+      registerUser({ username, password, firstname, lastname, patronicname, repeatPassword })
     )
       .then(() => history.push(routes.home))
       .catch(console.error);

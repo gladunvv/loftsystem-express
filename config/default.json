@@ -1,4 +1,4 @@
 {
     "port": 5000,
-    "mongoUri": "mongodb+srv://Vladislav:slabyiparol@loftsystem1-rqvyg.mongodb.net/test?retryWrites=true&w=majority"
-}
+    "mongoUri": "mongodb+srv://vladislav:Parolyanet12@loftsystem1-rqvyg.mongodb.net/app"
+}   

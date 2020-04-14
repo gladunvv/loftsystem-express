@@ -3,11 +3,13 @@ const AuthController = require('../controllers/auth.controllers');
 const ProfileController = require('../controllers/profile.conrtrollers');
 const UserController = require('../controllers/user.controllers');
 const NewsConrtroller = require('../controllers/news.conrtrollers');
+const authMiddleware = require('../middleware/auth.middleware')
+
 
 const router = Router();
 
 router.post('/login', AuthController.login);
-router.post('/registration', AuthController.registration);
+router.post('/registration', authMiddleware.regisration, AuthController.registration);
 router.post('/refresh-token', AuthController.refreshToken);
 
 router.get('/profile', ProfileController.profile);
