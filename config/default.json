@@ -1,4 +1,7 @@
 {
     "port": 5000,
-    "mongoUri": "mongodb+srv://vladislav:Parolyanet12@loftsystem1-rqvyg.mongodb.net/app"
-}   
+    "mongoUri": "mongodb+srv://vladislav:Hesoyam1@loftsystem2-rqvyg.mongodb.net/app",
+    "jwtSecret": "loftsystem",
+    "tokenLife": 1000,
+    "refreshTokenLife": "2h"
+}
