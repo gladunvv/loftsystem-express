@@ -85,6 +85,11 @@ module.exports.login = async (req, res) => {
   }
 };
 
-module.exports.refreshToken = (req, res) => {
-  console.log('refresh-token :', req.body);
+module.exports.refreshToken =  (req, res) => {
+  try { 
+    const payload = req.payload
+    console.log('payload :', payload);
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова...', err: e.message });
+  }
 };
