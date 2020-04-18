@@ -28,9 +28,5 @@ module.exports.login = [
     .isLength({ min: 3 })
     .withMessage('Слишком короткое имя пользователя'),
 
-
-  check('password')
-    .exists()
-    .withMessage('Введите пароль')
-
+  check('password').exists().withMessage('Введите пароль'),
 ];

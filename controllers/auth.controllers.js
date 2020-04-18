@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
-const { tokensGenerate } = require('../helpers/tokens.helpers');
+const { tokensGenerate, tokenGetPayload } = require('../helpers/tokens.helpers');
 
 module.exports.registration = async (req, res) => {
   try {
@@ -48,7 +48,7 @@ module.exports.registration = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-
+    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -68,7 +68,6 @@ module.exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Неверный пароль, попробуйте снова' });
     }
     const tokens = tokensGenerate(user);
-
     responseData = {
       id: user.id,
       image: user.image,
@@ -85,10 +84,14 @@ module.exports.login = async (req, res) => {
   }
 };
 
-module.exports.refreshToken =  (req, res) => {
-  try { 
-    const payload = req.payload
-    console.log('payload :', payload);
+module.exports.refreshToken = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    const payload = tokenGetPayload(token);
+    const user = await User.findOne({ _id: payload.id });
+
+    const tokens = tokensGenerate(user);
+    res.status(200).json({ ...tokens });
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова...', err: e.message });
   }

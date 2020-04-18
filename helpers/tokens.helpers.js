@@ -22,3 +22,9 @@ module.exports.tokensGenerate = (user) => {
   };
   return data;
 };
+
+module.exports.tokenGetPayload = (token) => {
+  secret = config.get('jwtSecret');
+  payload = jwt.verify(token, secret);
+  return payload;
+};
