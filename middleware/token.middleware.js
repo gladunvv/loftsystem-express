@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 module.exports.isAuth = async (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization;
     const secret = config.get('jwtSecret');
     const payload = jwt.verify(token, secret);
     const user = await User.findOne({ username: payload.username });

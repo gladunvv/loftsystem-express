@@ -108,7 +108,7 @@ class Profile extends PureComponent {
 
   submitHandler = () => {
     const { dispatch } = this.props;
-    const { firstName, surName, middleName, oldPassword, newPassword, fileRef } = this.state;
+    const { firstName, surName, middleName, oldPassword, newPassword, fileRef, confirmPassword } = this.state;
     dispatch(
       saveProfile({
         firstName,
@@ -116,6 +116,7 @@ class Profile extends PureComponent {
         middleName,
         oldPassword,
         newPassword,
+        confirmPassword,
         avatar: fileRef.current.files[0] || null
       })
     ).then(() => {

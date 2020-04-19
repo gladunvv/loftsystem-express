@@ -1,5 +1,6 @@
 {
     "port": 5000,
+    "upload": "./client/public/upload",
     "mongoUri": "mongodb+srv://vladislav:Parolyanet12@loftsystem2-rqvyg.mongodb.net/app",
     "jwtSecret": "loftsystem",
     "tokenLife": "12h",
