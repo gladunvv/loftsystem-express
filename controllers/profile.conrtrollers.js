@@ -3,6 +3,7 @@ const formidable = require('formidable');
 const path = require('path');
 const config = require('config');
 const fs = require('fs');
+const fsex = require('fs-extra')
 const bcrypt = require('bcryptjs');
 const { resizePhoto } = require('../helpers/resize.helpers');
 
@@ -39,7 +40,10 @@ module.exports.updateProfile = async (req, res) => {
       let image = user.imgage;
       if (files.avatar) {
         const fileName = path.join(upload, files.avatar.name);
-        fs.renameSync(files.avatar.path, fileName);
+        console.log('files.avatar.path :', files.avatar.path);
+        // await fs.renameAsync(files.avatar.path, fileName);
+        console.log('file :', fileName);
+        fsex.moveSync(files.avatar.path, fileName)
         image = await resizePhoto(fileName);
       }
       let password = user.password;
