@@ -8,9 +8,9 @@ module.exports.tokensGenerate = (user) => {
   };
 
   const secret = config.get('jwtSecret');
-
   const tokenEx = config.get('tokenLife');
   const refreshTokenEx = config.get('refreshTokenLife');
+  
   const token = jwt.sign(payload, secret, { expiresIn: tokenEx });
   const refreshToken = jwt.sign(payload, secret, { expiresIn: refreshTokenEx });
 

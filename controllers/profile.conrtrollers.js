@@ -2,8 +2,8 @@ const User = require('../models/User');
 const formidable = require('formidable');
 const path = require('path');
 const config = require('config');
-const fs = require('fs');
-const fsex = require('fs-extra')
+const fsex = require('fs-extra');
+const toBase64 = require('../helpers/encodeBase64');
 const bcrypt = require('bcryptjs');
 const { resizePhoto } = require('../helpers/resize.helpers');
 
@@ -19,7 +19,6 @@ module.exports.profile = async (req, res) => {
       permission: user.permission,
       image: user.image,
     };
-    console.log('response :', response);
     res.status(200).json(response);
   } catch (e) {
     console.log(e);
@@ -30,7 +29,6 @@ module.exports.profile = async (req, res) => {
 module.exports.updateProfile = async (req, res) => {
   try {
     user = req.user;
-    console.log('user :', user);
     const form = new formidable.IncomingForm();
     const upload = path.join(config.upload);
     form.parse(req, async (err, fields, files) => {
@@ -40,15 +38,12 @@ module.exports.updateProfile = async (req, res) => {
       let image = user.imgage;
       if (files.avatar) {
         const fileName = path.join(upload, files.avatar.name);
-        console.log('files.avatar.path :', files.avatar.path);
-        // await fs.renameAsync(files.avatar.path, fileName);
-        console.log('file :', fileName);
-        fsex.moveSync(files.avatar.path, fileName)
-        image = await resizePhoto(fileName);
+        fsex.moveSync(files.avatar.path, fileName);
+        const resizePath = await resizePhoto(fileName);
+        image = await toBase64.encode(resizePath, files.avatar.type);
       }
       let password = user.password;
       const { oldPassword, newPassword } = fields;
-
       if (oldPassword && newPassword) {
         const isMatch = await bcrypt.compare(oldPassword, user.password);
         if (!isMatch) {

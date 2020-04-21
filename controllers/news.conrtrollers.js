@@ -4,8 +4,7 @@ const uuid = require('uuid').v4;
 
 module.exports.news = async (req, res) => {
   try {
-    const news = await News.find();
-    console.log('news :', news);
+    const news = await News.find().sort('-created_at');
     res.status(200).json(news);
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова...', error: e.message });
@@ -34,8 +33,7 @@ module.exports.createNews = async (req, res) => {
 
     await newNews.save();
     const news = await News.find();
-
-    res.status(201).json({ news });
+    res.status(201).json(news);
   } catch (e) {
     res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова...', error: e.message });
   }
@@ -45,9 +43,7 @@ module.exports.updateNews = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, text } = req.body;
-
     await News.findOneAndUpdate({ id }, { text, title });
-
     const news = await News.find();
     res.status(200).json(news);
   } catch (e) {

@@ -12,13 +12,11 @@ module.exports.registration = async (req, res) => {
         message: errors.errors[0].msg,
       });
     }
-
     const { username, surName, firstName, middleName, password } = req.body;
     const candidate = await User.findOne({ username });
     if (candidate) {
       return res.status(400).json({ message: 'Такой пользователь уже существует!' });
     }
-
     const hashedPasswrod = await bcrypt.hash(password, 12);
     const newUser = { username, password: hashedPasswrod, surName, firstName, middleName };
     const permission = {
@@ -48,9 +46,7 @@ module.exports.registration = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
@@ -61,9 +57,7 @@ module.exports.login = async (req, res) => {
     if (!user) {
       return res.status(400).json(`Пользователь ${username} не найден`);
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
-
     if (!isMatch) {
       return res.status(400).json({ message: 'Неверный пароль, попробуйте снова' });
     }
@@ -89,7 +83,6 @@ module.exports.refreshToken = async (req, res) => {
     const token = req.headers.authorization;
     const payload = tokenGetPayload(token);
     const user = await User.findOne({ _id: payload.id });
-
     const tokens = tokensGenerate(user);
     res.status(200).json({ ...tokens });
   } catch (e) {

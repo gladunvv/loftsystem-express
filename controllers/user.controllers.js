@@ -3,7 +3,6 @@ const User = require('../models/User');
 module.exports.users = async (req, res) => {
   try {
     const userlist = await User.find();
-
     const formattedUserList = await Promise.all(
       userlist.map(async (user) => {
         return {
@@ -26,11 +25,8 @@ module.exports.users = async (req, res) => {
 module.exports.permissionUser = async (req, res) => {
   try {
     const { id } = req.params;
-
     const { permission } = req.body;
-
     await User.findOneAndUpdate({ _id: id }, { permission });
-
     res.status(200).json({ message: 'Права пользователя изменены' });
   } catch (e) {
     console.log(e);
